@@ -8,27 +8,49 @@
 
 1. **Cadastro de Usuários**
 
-    - Prestadores de serviço se cadastram na plataforma, fornecendo informações pessoais, habilidades, categorias de serviço e detalhes de verificação.
-    - Usuários contratantes se cadastram, fornecendo informações pessoais, preferências de serviço e detalhes de verificação, incluindo a cidade de residência.
-    - Ambos os tipos de usuários passam por um processo de verificação de identidade e localização para garantir que os serviços possam ser prestados apenas em uma determinada cidade ou raio de distância.
+| Atividade                                    | Entrada                                                                         | Saída                                                          |
+| -------------------------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Iniciar cadastro                             | -                                                                               | - Pedido de cadastro                                           |
+| Analisar pedido de cadastro                  | - Pedido de cadastro                                                            | - Formulário de contratante/Formulário de prestador de serviço |
+| Enviar formulário de contratante             | - Pedido de formulário de Contratante                                           | - Formulário de contratante enviado                            |
+| Preencher formulário de contratante          | - Nome, CPF, Endereço, número de contato                                        | - Formulário de contratante preenchido                         |
+| Enviar formulário de prestador de serviço    | - Pedido de formulário de Prestador de serviço                                  | - Formulário de prestador de serviço enviado                   |
+| Preencher formulário de prestador de serviço | - Nome, CPF, Endereço, número de contato, serviços que está disposto a realizar | - Formulário de prestador de serviço preenchido                |
+| Analisar formulário                          | - Formulário preenchido                                                         | - Cadastro realizado/ Cadastro negado                          |
+
+<!--EndFragment-->
 
 2. **Publicação de Serviços:**
 
-    - Usuários contratantes podem publicar serviços desejados, especificando a categoria, uma breve descrição e um range de preço.
+| Atividade                                    | Entrada                                                 | Saída                                            |
+| -------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------ |
+| Escolher uma categoria                       | - Cadastro realizado<br>-Lista de categorias de serviço | - Categoria de serviço selecionada               |
+| Enviar formulário para publicação de serviço | - Categoria de serviço selecionada                      | - Formulário de publicação de serviço aberto     |
+| Preencher formulário com uma breve descrição | - Dados referentes ao serviço solicitado                | - Formulário de publicação de serviço preenchido |
+| Estipular uma faixa de preço                 | - Faixa de preço que o contratante deseja gastar        | - Faixa de preço estipulada                      |
+| Publicar o serviço                           | - Todas informações do serviço no sistema               | - Serviço publicado no sistema                   |
 
 3. **Propostas, Negociação e Acordo**
 
-    - Prestadores de serviço podem visualizar os serviços publicados e enviar propostas com seus preços e detalhes adicionais.
-    - Contratantes e prestadores de serviço podem se comunicar pelo aplicativo para discutir detalhes, negociar preços e chegar a um acordo.
-    - Quando um acordo é alcançado, ambos (contratante e prestador) confirmam o acordo.
-    - O contratante tem até 4 horas para realizar o depósito do valor acordado. O dinheiro é retido temporariamente pela empresa.
+| Atividade                                  | Entrada                                                                                                                         | Saída                                                                                                                           |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Fazer proposta pelo serviço                | - Leitura do serviço disponível<br>-Descrição do serviço<br>- Range de preço do serviço<br>                                     | - Dados do prestador (nome, categoria, avaliação)<br>- Dados da proposta (valor pedido, mensagem com perguntas sobre o serviço) |
+| Enviar proposta                            | - Dados do prestador (nome, categoria, avaliação)<br>- Dados da proposta (valor pedido, mensagem com perguntas sobre o serviço) | - Adição da proposta ao sistema                                                                                                 |
+| Ler proposta e iniciar negociação          | - Proposta com valor e perguntas                                                                                                | - Início (ou não) da negociação                                                                                                 |
+| Negociar termos e tirar dúvidas do serviço | - Início da negociação                                                                                                          | - Acordo (ou não) de termos                                                                                                     |
+| Solicitar pagamento                        | - Acordo de termos<br>- Dados de pagamento feito pelo contratante                                                               | - Status de pagamento (pago ou não)<br>- Salva a transação no sistema                                                           |
+| Retém pagamento e envia dados do serviço   | - Status de pagamento concluído<br>- Valor monetário                                                                            | - Dados do serviço (endereço, prazo, valor, tipo de serviço)                                                                    |
+| Recebe dados para realizar o serviço       | - Dados do serviço (endereço, prazo, valor, tipo de serviço)                                                                    | - Emissão do contrato                                                                                                           |
 
 4. **Realização do Serviço e Finalização**
 
-    - Após a conclusão do serviço, o contratante notifica a empresa através do aplicativo.
-    - Após a confirmação da realização do serviço, a empresa libera o pagamento para o prestador de serviço.
-    - Contratantes e prestadores de serviço podem avaliar e fornecer feedback um ao outro, contribuindo para a reputação na plataforma.
-    - A empresa oferece suporte ao cliente para resolver problemas, lidar com disputas ou responder a dúvidas durante e após a transação.
+| Atividade                           | Entrada                                                                                                                                                             | Saída                                                                                                                                  |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Realização do Serviço               | - Contrato de serviço (endereço, prazos, valor, tipo de serviço) <br>                                                                                               | - Serviço concluído <br> - Relatório de serviço (detalhando as atividades realizadas)                                                  |
+| Confirmação da Conclusão do Serviço | - Relatório de serviço <br> - Aprovação do cliente                                                                                                                  | - Confirmação da conclusão do serviço (pendente ou concluída) <br> - Pagamento liberado (pendente ou liberado)                         |
+| Liberação do Pagamento              | - Valor final <br> - Aprovação do pagamento (pelo cliente ou sistema financeiro)                                                                                    | - Status do depósito (pendente ou realizado)                                                                                           |
+| Feedback                            | Questionário de feedback (satisfação com o serviço, qualidade do serviço, atendimento ao cliente, tempo de entrega, preço) <br> - Comentários adicionais do cliente | - Feedback do serviço (satisfeito ou insatisfeito) <br> - Sugestões de melhorias <br> - Elogio (opcional) <br> - Reclamação (opcional) |
+| Suporte                             | Solicitação de suporte (descrição do problema)                                                                                                                      | - Solução do problema <br> - Resolução do problema (pendente ou resolvido)                                                             |
 
 <br />
 <hr />
